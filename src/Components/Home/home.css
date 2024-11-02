@@ -23,6 +23,15 @@ i {
     width: 100%;
 }
 
+.content-container {
+    height: 92vh;
+    padding: 0 30px;
+    /* width: 100%; */
+    /* padding-top: 50px; */
+    overflow-y: scroll;
+}
+
+
 @media (max-width: 576px) {
     /* .main-content-container {
         width: 100% !important;
@@ -31,16 +40,10 @@ i {
     .content-container,
     .cashbook-details-list-container {
         padding-bottom: 50px !important;
+        height: 100vh;
     }
 }
 
-.content-container {
-    height: 92vh;
-    padding: 0 30px;
-    /* width: 100%; */
-    /* padding-top: 50px; */
-    overflow-y: scroll;
-}
 
 /* Home Container */
 

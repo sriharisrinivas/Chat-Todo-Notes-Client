@@ -4,6 +4,7 @@ import SideBar from '../SideBar/SideBar';
 import "./Layout.css";
 import { Container } from 'react-bootstrap';
 import Feedback from '../Feedback/Feedback';
+import FloatButtonComponent from '../LabelBottomNavigation/FloatButtonComponent';
 
 function Layout({ children }) {
 
@@ -23,9 +24,11 @@ function Layout({ children }) {
                 </Container>
             </div>
 
-            <div className={`${window.location.pathname.includes("/chat") ? "d-none" : ""}`} style={{ position: "relative"}} title='Feedback'>
+            <FloatButtonComponent setShowChatModal={setShowChatModal} />
+
+            {/* <div className={`${window.location.pathname.includes("/chat") ? "d-none" : ""}`} style={{ position: "relative"}} title='Feedback'>
                 <i className="fa-solid fa-comments chat-icon-container" onClick={() => setShowChatModal(true)}></i>
-            </div>
+            </div> */}
 
             {/* <div className='footer-main-container' style={{ background: darkModeState ? "black" : "white" }}>
                 <Footer />

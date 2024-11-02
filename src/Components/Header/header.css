@@ -34,6 +34,10 @@
     .cp-btn {
         margin-top: 10px;
     }
+
+    .header-container {
+        display: none;
+    }
 }
 
 .nav-link.active {

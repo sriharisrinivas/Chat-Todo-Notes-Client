@@ -40,7 +40,7 @@ function Header() {
             {/* <Nav.Link className='header-elements' eventKey={5} as={Link} onClick={onLeaveFocus} to="/chat">
                                     Chat
                                 </Nav.Link> */}
-            <Nav.Link className='header-elements' eventKey={6} as={Link} onClick={onLeaveFocus} to="/notes">
+            <Nav.Link className='header-elements' eventKey={6} as={Link} onClick={onLeaveFocus} to="/cashbook">
                 Notes
             </Nav.Link>
             <Nav.Link className='header-elements' eventKey={7} as={Link} onClick={onLeaveFocus} to="/about">
