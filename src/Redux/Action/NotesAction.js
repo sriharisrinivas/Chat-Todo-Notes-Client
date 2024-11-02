@@ -1,4 +1,4 @@
-import { API_END_POINTS, CONSTANTS } from "../../config";
+import { API_END_POINTS } from "../../config";
 import { REDUX_CONSTANTS } from "../reduxConstants";
 import { startLoaderAction, stopLoaderAction } from "./LoaderAction";
 import axios from "axios";

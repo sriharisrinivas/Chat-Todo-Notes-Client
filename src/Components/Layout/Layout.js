@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from '../Header/Header';
+import Header from '../Header/HeaderComponent';
 import SideBar from '../SideBar/SideBar';
 import "./Layout.css";
 import { Container } from 'react-bootstrap';
@@ -14,18 +14,18 @@ function Layout({ children }) {
 
             {showChatModal && <Feedback show={showChatModal} handleClose={() => setShowChatModal(false)} />}
 
-            <Header />
+            {/* <Header /> */}
 
             <div className='d-flex sidebar-and-content-container'>
-                <SideBar />
-                <Container style={{ height: "calc(100vh - 60px)", width: "100%" }}>
+                {/* <SideBar /> */}
+                <div style={{ height: "calc(100vh - 0px)", width: "100%" }}>
                     {children}
-                </Container>
+                </div>
             </div>
 
-            <div className={`${window.location.pathname.includes("/chat") ? "d-none" : ""}`} style={{ position: "relative"}} title='Feedback'>
+            {/* <div className={`${window.location.pathname.includes("/chat") ? "d-none" : ""}`} style={{ position: "relative"}} title='Feedback'>
                 <i className="fa-solid fa-comments chat-icon-container" onClick={() => setShowChatModal(true)}></i>
-            </div>
+            </div> */}
 
             {/* <div className='footer-main-container' style={{ background: darkModeState ? "black" : "white" }}>
                 <Footer />

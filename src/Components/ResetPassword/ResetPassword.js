@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { API_END_POINTS, CONSTANTS } from '../../config';
+import { API_END_POINTS } from '../../config';
 import { startLoaderAction, stopLoaderAction } from '../../Redux/Action/LoaderAction';
 import { useDispatch } from 'react-redux';
 

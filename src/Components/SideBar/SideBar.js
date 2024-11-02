@@ -1,117 +1,66 @@
-import React, { useEffect } from 'react';
-import { CDBSidebar, CDBSidebarContent, CDBSidebarFooter, CDBSidebarHeader, CDBSidebarMenu, CDBSidebarMenuItem } from 'cdbreact';
-import { Button, Col, Form, NavLink, Row } from "react-bootstrap";
-import { Link } from 'react-router-dom';
-import { updateContentContainerHeight } from '../../Redux/Action/SideBarAction';
+import React, { useContext } from 'react';
+import { Input, Layout } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { startLoaderAction, stopLoaderAction } from '../../Redux/Action/LoaderAction';
-import { API_END_POINTS, CONSTANTS } from '../../config';
-import { REDUX_CONSTANTS } from '../../Redux/reduxConstants';
-import { updateSelectedNotes } from '../../Redux/Action/NotesAction';
+import { fetchFilteredConversations } from '../../Redux/Action/ChatAction';
+import './SideBar.css';
+import AvatarComponent from '../AvatarComponent/AvatarComponent';
+import ChatsList from '../ChatsList/ChatsList';
+import GroupList from '../GroupList/GroupList';
+import { ChatContext } from '../Home/home';
+
+const { Sider } = Layout;
 
 function SideBar() {
 
-    const userDetails = useSelector(state => state.userDetailsReducer);
-
-    const getProfile = async () => {
-        dispatch(startLoaderAction());
-        let url = process.env.REACT_APP_SERVER_URL + API_END_POINTS.GET_PROFILE;
-        let options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
-            }
-        };
-        let response = await fetch(url, options);
-        dispatch(stopLoaderAction());
-        response = await response.json();
-        dispatch({
-            type: REDUX_CONSTANTS.UPDATE_USER_DETAILS,
-            payload: response
-        });
-    };
-
-
-    useEffect(() => {
-        getProfile()
-    }, []);
+    const { expanded } = useContext(ChatContext);
 
     const dispatch = useDispatch();
 
-    const onExpandCollapseSideBar = () => {
-        handleOutside();
-    };
+    const userDetails = useSelector(state => state.userDetailsReducer);
+    const chatState = useSelector(state => state.chatsReducer);
 
-    const handleOutside = () => {
-        let ele = document.getElementById("sidebar");
-        if (ele) {
-            ele = ele.getAttribute("class");
-            if (!ele.includes("toggled")) {
-                dispatch(updateContentContainerHeight(95));
-            } else {
-                dispatch(updateContentContainerHeight(84));
-            }
-        } else {
-            dispatch(updateContentContainerHeight(100));
-        }
+    const onFilterChats = (e) => {
+
+        const filteredChats = chatState.conversations.filter((chat) => {
+            return chat.receiverDetails.firstName.toLowerCase().includes(e.target.value.toLowerCase()) ||
+                chat.receiverDetails.lastName.toLowerCase().includes(e.target.value.toLowerCase());
+        });
+
+        dispatch(fetchFilteredConversations(filteredChats));
 
     };
-
-    const onLeaveFocus = () => { 
-        dispatch(updateSelectedNotes({ id: "", title: "Select Notes", description: "" }));
-    }
 
     return (
-        <div className='sidebar-todo' style={{ display: 'flex', overflow: 'scroll initial' }}>
-            <CDBSidebar textColor="#333" backgroundColor="#f8f9fa" id="sidebar" >
-                <CDBSidebarHeader prefix={<i onClick={onExpandCollapseSideBar} className="fa fa-bars fa-large"></i>}>
-                    {/* <a href="/home" className="text-decoration-none" style={{ color: 'inherit' }}> */}
-                        Todo - CashBook
-                    {/* </a> */}
-                </CDBSidebarHeader>
+        <Sider
+            defaultCollapsed={!expanded}
+            collapsed={!expanded}
+            trigger={null}
+            collapsedWidth="0"
+            onBreakpoint={(broken) => {
+                console.log(broken);
+            }}
+            onCollapse={(collapsed, type) => {
+            }}
+            width={290}
+        >
+            {/* Chat Header */}
+            <>
+                <div className='d-flex justify-content-around align-items-center'>
+                    <AvatarComponent data={userDetails} size={40} />
+                    <span className='me-2' style={{ color: 'white', fontWeight: 'bold' }}>{userDetails.firstName} {userDetails.lastName}</span>
+                    <img src="/chat-3d.png" width={50} height={60} />
+                </div>
 
-                <CDBSidebarContent className="sidebar-content">
-                    <CDBSidebarMenu>
-                        <NavLink exact as = {Link} onClick={onLeaveFocus} to="/home" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="home">Home</CDBSidebarMenuItem>
-                        </NavLink>
-                        {/* <NavLink exact as = {Link} onClick={onLeaveFocus} to="/addNewTask" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="columns">Add New Task</CDBSidebarMenuItem>
-                        </NavLink> */}
-                        <NavLink exact as = {Link} onClick={onLeaveFocus} to="/myTasks" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="table">My Tasks</CDBSidebarMenuItem>
-                        </NavLink>
-                        <NavLink exact as = {Link} onClick={onLeaveFocus} to="/gridView" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="list">Grid View</CDBSidebarMenuItem>
-                        </NavLink>
-                        <NavLink exact as = {Link} onClick={onLeaveFocus} to="/cashbook" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="book">Cash Book</CDBSidebarMenuItem>
-                        </NavLink>
-                        {/* <NavLink exact as = {Link} onClick={onLeaveFocus} to="/chat" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="user">Chat</CDBSidebarMenuItem>
-                        </NavLink> */}
-                        <NavLink exact as = {Link} onClick={onLeaveFocus} to="/notes" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="paperclip">Notes</CDBSidebarMenuItem>
-                        </NavLink>
-                        <NavLink exact as = {Link} onClick={onLeaveFocus} to="/about" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="user">About</CDBSidebarMenuItem>
-                        </NavLink>
-                    </CDBSidebarMenu>
-                </CDBSidebarContent>
+                <div className='p-2'>
+                    <Input placeholder="Search Contact" onChange={onFilterChats} />
+                </div>
+            </>
 
-                <CDBSidebarFooter style={{ textAlign: 'center' }}>
-                    <div
-                        style={{
-                            padding: '20px 5px',
-                            "text-transform": "capitalize"
-                        }}
-                    >
-                        {userDetails.firstName} {userDetails.lastName}
-                    </div>
-                </CDBSidebarFooter>
-            </CDBSidebar>
-        </div>
+            <ChatsList />
+
+            <GroupList />
+
+        </Sider>
     );
 }
 

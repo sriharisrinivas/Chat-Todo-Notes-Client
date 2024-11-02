@@ -3,21 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-datepicker/dist/react-datepicker.css";
 import Home from './Components/Home/home';
 import { Bars } from 'react-loader-spinner';
-import { BrowserRouter, Route, Switch, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './Components/Login/Login';
 import { useSelector } from 'react-redux';
 import AlertDismissible from './Components/Alert/AlertMessage';
-import CashBook from './Components/CashBook/CashBook';
 import Layout from './Components/Layout/Layout';
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
-import AboutPage from './Pages/AboutPage/AboutPage';
-import AllTasksPage from './Pages/AllTasksPage/AllTasksPage';
-import AddNewTaskPage from './Pages/AddNewTaskPage/AddNewTaskPage';
-import GridViewPage from './Pages/GridViewPage/GridViewPage';
-import ChatsContainerPage from './Pages/ChatsContainerPage/ChatsContainerPage';
-import ChatPage from './Pages/ChatPage/ChatPage';
-import NotesPage from './Pages/NotesPage/NotesPage';
+import { Button, message, Space } from 'antd';
+import { useEffect } from 'react';
 
 const PrivateRoute = ({ children, ...rest }) => {
   const jwtToken = sessionStorage.getItem('token');
@@ -34,6 +28,20 @@ function App() {
   const loaderState = useSelector(state => state.loaderReducer);
   const darkModeState = useSelector(state => state.darkModeReducer.isDarkMode);
 
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const showMessageCallBack = () => {
+    messageApi.open({
+      type: alertMessaage.type,
+      content: alertMessaage.message,
+    });
+  };
+
+  useEffect(() => {
+    if (alertMessaage.show) {
+      showMessageCallBack()
+    }
+  }, [alertMessaage])
 
   return (
     <>
@@ -56,8 +64,9 @@ function App() {
           {/* <Home /> */}
           {/* <Login /> */}
           <div className="alert-container">
-            <AlertDismissible {...alertMessaage} />
+              {contextHolder}
           </div>
+
           <Routes>
             <Route exact path="/"
               element={
@@ -75,82 +84,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route exact path="/addNewTask"
-              element={
-                <PrivateRoute>
-                  <Layout>
-                    <AddNewTaskPage />
-                  </Layout>
-                </PrivateRoute>
-              }
-            />
-            <Route exact path="/myTasks"
-              element={
-                <PrivateRoute>
-                  <Layout>
-                    <AllTasksPage />
-                  </Layout>
-                </PrivateRoute>
-              }
-            />
-            <Route exact path="/about"
-              element={
-                <PrivateRoute>
-                  <Layout>
-                    <AboutPage />
-                  </Layout>
-                </PrivateRoute>
-              }
-            />
-            <Route exact path="/gridView"
-              element={
-                <PrivateRoute>
-                  <Layout>
-                    <GridViewPage />
-                  </Layout>
-                </PrivateRoute>
-              }
-            />
-            <Route exact path="/cashbook"
-              element={
-                <PrivateRoute>
-                  <Layout>
-                    <CashBook />
-                  </Layout>
-                </PrivateRoute>
-              }
-            />
-
-            <Route exact path="/chat"
-              element={
-                <PrivateRoute>
-                  <Layout>
-                    <ChatsContainerPage />
-                  </Layout>
-                </PrivateRoute>
-              }
-            />
-
-            <Route exact path="/chat/:id"
-              element={
-                <PrivateRoute>
-                  <Layout>
-                    <ChatPage />
-                  </Layout>
-                </PrivateRoute>
-              }
-            />
-
-            <Route exact path="/notes"
-              element={
-                <PrivateRoute>
-                  <Layout>
-                    <NotesPage />
-                  </Layout>
-                </PrivateRoute>
-              }
-            />
-
+           
           </Routes>
 
         </BrowserRouter>

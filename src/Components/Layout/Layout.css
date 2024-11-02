@@ -1,5 +1,19 @@
 .layout-container {
     height: 100vh;
+
+}
+
+.ant-layout {
+    height: 100%;
+    /* border: 1px solid red; */
+}
+
+.ant-layout-sider {}
+
+@media (min-width: 576px) {
+    .ant-layout-sider {
+        min-width: 300px !important;
+    }
 }
 
 /* Side bar */

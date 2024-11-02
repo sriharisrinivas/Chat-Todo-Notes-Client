@@ -73,11 +73,9 @@ function LoginSignUpForm(props) {
         if (response.status == 200) {
             setErrorMessage("");
             dispatch(renderAlertMessageAction({
-                message: "Registration SuccessFul. Please Login.",
-                heading: "Register",
-                show: true
+                message: "Registration Successful. Please Login.",
+                type: "success"
             }));
-            removeAlertMessage();
             setFormType("login");
             setSignUpFields(initialSignUpFields);
         } else {
@@ -86,6 +84,7 @@ function LoginSignUpForm(props) {
     };
 
     const loginUser = async () => {
+
         if (loginFields.email == '' || loginFields.password == '') {
             setErrorMessage("Please Enter Mandatory Fields.");
             return;
@@ -104,12 +103,11 @@ function LoginSignUpForm(props) {
         dispatch(stopLoaderAction());
         if (response.status == 200) {
             setErrorMessage("");
-            // dispatch(renderAlertMessageAction({
-            //     message: "Login SuccessFul. Redirecting to home page in couple of seconds",
-            //     heading: "Login",
-            //     show: true
-            // }));
-            // removeAlertMessage();
+            dispatch(renderAlertMessageAction({
+                message: "Login SuccessFul.",
+                type: "success",
+                show: true
+            }));
             sessionStorage.setItem("token", parsedResponse.jwtToken);
             navigate("/home");
             setLoginFields(initialLoginFields);
@@ -137,7 +135,6 @@ function LoginSignUpForm(props) {
                 <ResetPassword show={showResetPasswordPopup} handleClose={() => { setShowChangePasswordPopup(false); setLoginFields(initialLoginFields); }} />
             }
 
-            {/* <ProfilePictureUpload /> */}
             {
                 formType == "login" &&
                 <>

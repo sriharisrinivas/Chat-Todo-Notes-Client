@@ -8,6 +8,8 @@ import { cashbookReducer } from "./CashbookReducer";
 import { darkModeReducer } from "./DarkModeReducer";
 import { chatsReducer } from "./ChatReducer";
 import { notesReducer } from "./NotesReducer";
+import { chatHelperReducer } from "./ChatHelperReducer";
+import { groupChatReducer } from "./GroupChatReducer";
 
 export const rootReducer = combineReducers({
     todosListReducer: todosListReducer,
@@ -18,5 +20,7 @@ export const rootReducer = combineReducers({
     cashbookReducer: cashbookReducer,
     darkModeReducer: darkModeReducer,
     chatsReducer: chatsReducer,
-    notesReducer: notesReducer
+    notesReducer: notesReducer,
+    groupChatReducer: groupChatReducer,
+    chatHelperReducer: chatHelperReducer
 })

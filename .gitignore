@@ -23,9 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 mongoose.js
 fibonacci.js
-src/Components/Input.js
-src/Components/Statistics.js
-src/Components/StatItem.js
 src/AppV1.css
 src/AppV1.js
 src/Practice

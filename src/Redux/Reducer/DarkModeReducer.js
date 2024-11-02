@@ -1,7 +1,7 @@
 import { REDUX_CONSTANTS } from "../reduxConstants";
 
 const initialState = {
-    isDarkMode: true
+    isDarkMode: false
 }
 
 export const darkModeReducer = (state = initialState, action) => {

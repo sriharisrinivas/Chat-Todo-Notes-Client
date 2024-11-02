@@ -1,70 +1,38 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Chat Application 
+[Chat Application Live Link](https://srihari-chat-mern.vercel.app/)
 
-## Available Scripts
+Source Code
+[Frontend Git Link](https://gitlab.com/Sriharisrinivas/todo-frontend/-/tree/chat-app)
+[Backend Git Link](https://gitlab.com/Sriharisrinivas/todo/-/tree/srihari_v2)
 
-In the project directory, you can run:
+# Highlights of this App
 
-### `npm start`
+ 1. Users can login or register with their Gmail account.
+ 2. Users can securely reset their password by verifying a one-time password (OTP) sent to their registered Gmail account.
+ 3. User passwords are securely encrypted using **bcrypt** to ensure data protection and privacy.
+ 4. Once logged in, users can seamlessly begin chatting with others, with real-time updates such as online status.
+ 5. Additionally users can also update their profile details.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Mongo DB Schema
+![enter image description here](https://res.cloudinary.com/sriharisrinivas/image/upload/v1727979606/IMG_20241003_234617_jwfuxd.jpg)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# My approach
+I would like to highlight a few key points, specifically regarding how I facilitated communication between the server and client, focusing on data exchange and synchronization.
 
-### `npm test`
+1. Users can log in or sign up using their credentials. Both registration and sign-in functionalities are implemented through REST APIs, with authentication managed via JWT tokens and encrypted passwords for enhanced security. After a successful login, the client triggers a socket connection to add the user's details to the 'online users' list, enabling real-time updates of online user statuses.											
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Once the user is added to the 'online users' list, the server triggers another socket event to fetch the user's previous conversations (including messages), which are then rendered in the UI in real-time.											
 
-### `npm run build`
+3. Newly created users don’t have any existing conversations, so to initiate a new one, the client selects a user from the 'add new users' list and sends a message. This triggers a socket event with the relevant details, creating a new conversation. The server then triggers another socket event to send the updated conversations list, which is finally rendered in the UI.	
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Users with existing conversations can select any conversation to send a message. This action triggers a socket event with the relevant details, creating a new message and adding it to the current conversation. The server then emits another socket event to update the conversations list, which is subsequently rendered in the UI for real-time visibility.											
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5. When logging out or closing the application, a socket event is triggered to remove the current user from the 'online users' list, ensuring real-time updates of the online status.											
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Other features, such as changing the password, updating the profile, sending OTPs, and verifying OTPs for password reset, have been implemented using REST APIs. Since these features don't require bi-directional communication, REST APIs provide a straightforward solution for handling them efficiently.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+DM for any clarifications in developing this project. Happy Coding.
+sriharisrinivas995@gmail.com

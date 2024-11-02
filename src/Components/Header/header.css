@@ -43,3 +43,22 @@
     background-color: inherit !important;
     color: inherit !important;
 }
+
+/* .ant-layout-sider-zero-width-trigger {
+    z-index: 99999999 !important;
+    top: 10px !important;
+} */
+
+.header-component {
+    justify-content: space-between;
+}
+
+@media (min-width: 576px) {
+    .header-toggle {
+        display: none;
+    }
+
+    .header-component {
+        justify-content: space-between;
+    }
+}
