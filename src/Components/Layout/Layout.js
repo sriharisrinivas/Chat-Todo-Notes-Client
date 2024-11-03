@@ -4,7 +4,7 @@ import SideBar from '../SideBar/SideBar';
 import "./Layout.css";
 import { Container } from 'react-bootstrap';
 import Feedback from '../Feedback/Feedback';
-import FloatButtonComponent from '../LabelBottomNavigation/FloatButtonComponent';
+import FloatButtonComponent from '../FloatButtonComponent/FloatButtonComponent';
 
 function Layout({ children }) {
 
