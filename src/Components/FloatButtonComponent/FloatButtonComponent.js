@@ -7,7 +7,6 @@ import { Nav } from 'react-bootstrap';
 import { updateSelectedNotes } from '../../Redux/Action/NotesAction';
 import "./FloatButtonComponent.css";
 
-
 const FloatButtonComponent = ({ setShowChatModal }) => {
 
   const [open, setOpen] = useState(true);
