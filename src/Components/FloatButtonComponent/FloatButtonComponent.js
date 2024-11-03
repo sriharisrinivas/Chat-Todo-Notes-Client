@@ -9,7 +9,7 @@ import "./FloatButtonComponent.css";
 
 const FloatButtonComponent = ({ setShowChatModal }) => {
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
